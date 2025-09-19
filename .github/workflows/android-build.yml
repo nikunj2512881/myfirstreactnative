@@ -3,49 +3,41 @@ name: Android Build
 on:
   push:
     branches:
-      - main   # or your branch name
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout your code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Setup Java (needed for Gradle)
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # Step 3: Setup Node (for React Native)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      # Step 4: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Step 5: Setup Android SDK
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      # Step 6: Validate Gradle wrapper (locks version to what you set locally)
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v2
 
-      # Step 7: Build the APK (Release)
       - name: Build Android APK
         run: |
           cd android
           ./gradlew assembleRelease --warning-mode all
 
-      # Step 8: Upload APK as artifact
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
