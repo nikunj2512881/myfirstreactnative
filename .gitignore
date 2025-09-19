@@ -1,0 +1,7 @@
+/android/app/build
+/ios/Pods
+/node_modules
+/ios/build
+/android/.gradle
+ios/Podfile.lock
+ios/.DS_Store
